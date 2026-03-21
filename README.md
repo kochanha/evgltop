@@ -1,5 +1,6 @@
-<h1 align="center">evgltop</h1>
-<p align="center"><em>Especially designed for Emory Vision & Graphics Lab</em></p>
+<p align="center">
+  <img src="screenshots/banner.svg" width="800" alt="evgltop">
+</p>
 
 <p align="center">
   <strong>See your GPUs. Know who's on them. Grab one in seconds.</strong>
