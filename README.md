@@ -1,6 +1,5 @@
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0E315F,70:0E315F,100:E69F0A&height=120&section=header&text=evgltop&fontSize=50&fontColor=ffffff&fontAlignY=35&desc=Especially%20designed%20for%20Emory%20Vision%20%26%20Graphics%20Lab&descSize=14&descColor=ffffff&descAlignY=55" width="100%">
-</p>
+<h1 align="center">evgltop</h1>
+<p align="center"><em>Especially designed for Emory Vision & Graphics Lab</em></p>
 
 <p align="center">
   <strong>See your GPUs. Know who's on them. Grab one in seconds.</strong>
