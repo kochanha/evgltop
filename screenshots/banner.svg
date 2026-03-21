@@ -8,5 +8,5 @@
   </defs>
   <rect width="800" height="120" fill="url(#bg)" rx="8"/>
   <text x="400" y="55" font-family="monospace, Courier New" font-size="42" font-weight="bold" fill="white" text-anchor="middle">evgltop</text>
-  <text x="400" y="85" font-family="sans-serif, Arial" font-size="13" fill="rgba(255,255,255,0.8)" text-anchor="middle" font-style="italic">Especially designed for Emory Vision &amp; Graphics Lab</text>
+  <text x="400" y="85" font-family="sans-serif, Arial" font-size="13" fill="rgba(255,255,255,0.8)" text-anchor="middle" font-style="italic">Especially designed for Emory University Vision &amp; Graphics Lab</text>
 </svg>
