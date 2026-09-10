@@ -563,6 +563,16 @@ def pick_qos(num_gpus: int) -> str:
     return "gpu04"
 
 
+# Node evgl1: 64 logical CPUs (2 sockets x 16 cores x 2 threads) shared by 4 GPUs.
+# Allocate CPUs proportionally to requested GPUs, leaving headroom for CPU-only jobs.
+CPUS_PER_GPU = 12
+
+
+def cpus_for_gpus(num_gpus: int) -> int:
+    """Number of logical CPUs to request for the given GPU count."""
+    return max(1, num_gpus) * CPUS_PER_GPU
+
+
 def launch_srun(num_gpus: int, partition: str, mem: str) -> str:
     """Launch srun in a detached tmux session.
 
@@ -570,10 +580,11 @@ def launch_srun(num_gpus: int, partition: str, mem: str) -> str:
     by rename_pending_tmux() in the refresh loop.
     """
     qos = pick_qos(num_gpus)
+    cpus = cpus_for_gpus(num_gpus)
     temp_name = f"gpu{num_gpus}-pending-{datetime.now().strftime('%H%M%S')}"
     srun_cmd = (
         f"srun --gres=gpu:{num_gpus} --partition={partition} "
-        f"--qos={qos} --mem={mem} --cpus-per-task=4 --pty bash"
+        f"--qos={qos} --mem={mem} --cpus-per-task={cpus} --pty bash"
     )
     result = subprocess.run(
         ["tmux", "new-session", "-d", "-s", temp_name, srun_cmd],
@@ -1032,7 +1043,8 @@ class NewSessionScreen(ModalScreen[dict | None]):
                       "gpu04": "gpu04 (4 GPU, low priority)"}
         label = qos_labels.get(qos, qos)
         info = self.query_one("#qos-info", Static)
-        info.update(f"QOS: [bold cyan]{qos}[/] [dim]({label.split('(')[1]}[/]" if "(" in label else f"QOS: [bold cyan]{qos}[/]")
+        qos_text = f"QOS: [bold cyan]{qos}[/] [dim]({label.split('(')[1]}[/]" if "(" in label else f"QOS: [bold cyan]{qos}[/]"
+        info.update(f"{qos_text}  CPUs: [bold cyan]{cpus_for_gpus(int(num_gpus))}[/]")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "btn-launch":
